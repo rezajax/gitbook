@@ -34,3 +34,11 @@ jobs:
                   publish: npm run release
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            - name: Build Project
+              run: bun run build # فرض بر این که اسکریپت build دارید
+
+            - name: Deploy to GitHub Pages
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_dir: ./build # پوشه خروجی build پروژه شما
