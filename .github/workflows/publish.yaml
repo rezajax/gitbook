@@ -15,7 +15,6 @@ jobs:
             - name: Checkout Repo
               uses: actions/checkout@v3
               with:
-                  # این گزینه برای دریافت کل تاریخچه Git استفاده می‌شود
                   fetch-depth: 0
 
             - name: Setup bun
@@ -32,26 +31,6 @@ jobs:
               id: changesets
               uses: changesets/action@v1
               with:
-                  publish: npm run release # این خط را نگه دارید اگر هنوز release دارید
+                  publish: npm run release
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    release-preview:
-        name: Release Preview
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout Repo
-              uses: actions/checkout@v3
-
-            - name: Setup bun
-              uses: oven-sh/setup-bun@v1
-              with:
-                  bun-version: 1.1.18
-
-            - name: Install dependencies
-              run: bun install --frozen-lockfile
-              env:
-                  PUPPETEER_SKIP_DOWNLOAD: 1
-
-            - name: Run preview release
-              run: bun run release:preview
